@@ -6,6 +6,7 @@ export default gql`
     username: String!
     email: String!
     address: String!
+    privateKey: String!
     createdAt: String!
     updatedAt: String!
     isMe: Boolean!

@@ -1,7 +1,5 @@
 import bcrypt from "bcrypt";
-import lightwallet from "eth-lightwallet";
-import fs from "fs";
-
+import web3 from "../../web3Provider";
 import client from "../../client";
 
 export default {
@@ -25,38 +23,17 @@ export default {
         }
         const uglyPassword = await bcrypt.hash(password, 10);
 
-        //지갑 생성
-        let address;
-        let keystore;
-        // const mnemonic = lightwallet.keystore.generateRandomSeed();
-        // lightwallet.keystore.createVault(
-        //   {
-        //     password: password,
-        //     seedPhrase: mnemonic,
-        //     hdPathString: "m/0'/0'/0'",
-        //   },
-        //   function (err, ks) {
-        //     ks.keyFromPassword(password, function (err, pwDerivedKey) {
-        //       console.log("KS1:", ks);
-        //       ks.generateNewAddress(pwDerivedKey, 1);
-        //       console.log("KS2:", ks);
-
-        //       address = ks.getAddresses().toString();
-        //       keystore = ks.serialize();
-
-        //       fs.writeFile("wallet.json", keystore, function (err, data) {
-        //         if (err) console.log("에러");
-        //         else console.log("성공");
-        //       });
-        //     });
-        //   }
-        // );
+        // create wallet
+        const wallet = web3.eth.accounts.wallet.create(1);
+        const address = wallet[0].address;
+        const privateKey = wallet[0].privateKey;
 
         await client.user.create({
           data: {
             username,
             email,
             address,
+            privateKey,
             password: uglyPassword,
           },
         });
