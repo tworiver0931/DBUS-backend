@@ -32,12 +32,12 @@ const { sign } = require("crypto");
       // ethers (create random new account)
       //const signer = ethers.Wallet.createRandom();
 
-      const abi = require('./DTicketAbi.json');
-      const bytecodePath = path.join(__dirname, 'DTicketBytecode.bin');
+      const abi = require('../artifacts/DTicketAbi.json');
+      const bytecodePath = path.join(path.dirname(__dirname), 'artifacts', 'DTicketBytecode.bin');
       const bytecode = fs.readFileSync(bytecodePath, 'utf8');
       //console.log('contract address', contract.address)
-
-      const contract = new ethers.Contract(process.env.CONTRACT_ADDRESS, abi, signer);
+      const contract_address = '0x5cdf9ef935caAb1b115Bc4025EA77ddd3907d435';
+      const contract = new ethers.Contract(contract_address, abi, signer);
 
       const value = await contract.owner();
       console.log('contract owner: ', value);
