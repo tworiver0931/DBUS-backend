@@ -7,8 +7,11 @@ export default gql`
     email: String!
     address: String!
     privateKey: String!
+    tokenAmount: Int!
     createdAt: String!
     updatedAt: String!
     isMe: Boolean!
+    funds: [Fund]
+    tickets: [Ticket]
   }
 `;
