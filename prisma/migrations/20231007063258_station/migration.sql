@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Fund" ALTER COLUMN "fundAmount" SET DEFAULT 0,
+ALTER COLUMN "isEnd" SET DEFAULT false;

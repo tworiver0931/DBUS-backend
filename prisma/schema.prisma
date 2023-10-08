@@ -11,25 +11,43 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  username    String   @unique
-  email       String   @unique
-  password    String
-  address     String   @unique
-  privateKey  String   @unique
-  tokenAmount Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  funds       Fund[]
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  password     String
+  address      String   @unique
+  privateKey   String   @unique
+  tokenAmount  Int      @default(0)
+  investAmount Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  funds        Fund[]
+  tickets      Ticket[]
 }
 
 model Fund {
-  id         Int      @id @default(autoincrement())
-  stations   String[]
-  fundAmount Int
+  id         Int       @id @default(autoincrement())
+  stations   Station[]
+  fundAmount Int       @default(0)
   threshold  Int
   users      User[]
-  isEnd      Boolean
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  isEnd      Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Station {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posX  Float
+  posY  Float
+  funds Fund[]
+}
+
+model Ticket {
+  id     Int  @id @default(autoincrement())
+  fundId Int
+  amount Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }
