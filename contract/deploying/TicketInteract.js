@@ -32,8 +32,8 @@ const mint = async(param) =>{
   console.log('contract owner: ', value);
   
 
-
-  const tx = await contract.mint(param.account, param.id, param.amount, param.data);
+  //const tx = await contract.mint(param.account, param.id, param.amount, param.data);
+  const tx = await contract.mint('0xddF2b929370CF0962F0A87A49f388CA191432008', 0, 100, web3.utils.utf8ToHex('0'));
   const receipt = await tx.wait();
   console.log(receipt);
 }
@@ -68,7 +68,7 @@ const mintParameter = {
   account: process.env.SIGNER_ADDRESS,
   id: 0,
   amount: 100,
-  data: web3.utils.utf8ToHex('1')
+  data: web3.utils.utf8ToHex('0')
 }
 
 require("dotenv").config();
@@ -79,4 +79,6 @@ const setApprovalForAllParameter = {
   approved: true
 }
 
-setApproveForAll(setApprovalForAllParameter);
+//setApproveForAll(setApprovalForAllParameter);
+
+mint(mintParameter);

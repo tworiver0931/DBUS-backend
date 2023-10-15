@@ -1,8 +1,9 @@
 const { ethers } = require("ethers");
+
 require("dotenv").config();
 const fs = require('fs');
 const path = require('path');
-const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL)
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL) //metamask로 rpc를 연결하면 자동으로 signer랑 연결.
 const signer = new ethers.Wallet(process.env.SIGNER_PRIVATE_KEY, provider);
 
 
@@ -15,16 +16,16 @@ const createFund = async (param) => {
   //console.log('contract address', contract.address)
   const contractAddressPath = path.join(path.dirname(__dirname), 'artifacts', 'FundRegistryAddress.bin')
   const contract_address = fs.readFileSync(contractAddressPath, 'utf8')
-  const contract = new ethers.Contract(contract_address, abi, signer);
+  const contract = new ethers.Contract(contract_address, abi, signer); //provider를 제공시 읽기권한, signer하면, write권한까지.
 
   const value = await contract.fundCount();
   console.log('fundCount: ', value);
 
 
 
-  const tx = await contract.createFund(param.owner, param.payee, param.threshold);
+  const tx = await contract.createFund(param.owner, param.payee, param.threshold) //transaction response반환.
   const receipt = await tx.wait();
-  console.log(receipt);
+  console.log(receipt.events);
 }
 
 
@@ -64,8 +65,8 @@ const donateParam = {
   _fundAmount: 50,
   _isTicketUser:true
 }
-donate(donateParam);
-
+//createFund(createFundParam)
+donate(donateParam)
 
 
 
