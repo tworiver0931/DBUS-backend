@@ -1,42 +1,34 @@
 const { ethers } = require("ethers");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 require("dotenv").config();
 
+console.log(process.env.RPC_URL);
 
-console.log(process.env.RPC_URL)
-
-
-const generateNewUser = () => {
-  buf = Buffer.from(ethers.utils.randomBytes(32)); //32byte rng and creating buffer instance. buffer 
-  pKey = buf.toString('hex') 
+export const generateNewUser = () => {
+  buf = Buffer.from(ethers.utils.randomBytes(32)); //32byte rng and creating buffer instance. buffer
+  pKey = buf.toString("hex");
   const publicKey = ethers.utils.computePublicKey(buf);
   const address = ethers.utils.computeAddress(publicKey);
   const newUser = {
     privateKey: pKey,
     publicKey,
-    address
-  }
-  console.log('newUser', newUser);
+    address,
+  };
+  console.log("newUser", newUser);
   return newUser;
-}
+};
 
 //@param(value) : string of value to send. It's quantity is about ether.
 //@param(fromPrivatekey) : string of fromPrivatekey about sender
 async function etherSend(fromPrivateKey, to, value) {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
-  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL)
+  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
   //const provider = new ethers.providers.JsonRpcProvider('wss://rpc-mumbai.matic.today')
   console.log(provider);
   const signer = new ethers.Wallet(fromPrivateKey, provider);
-  
-  
-  
 
-  
-  
-  
   // Creating and sending the transaction object
   const tx = await signer.sendTransaction({
     to: to,
@@ -49,7 +41,3 @@ async function etherSend(fromPrivateKey, to, value) {
   // The transaction is now on chain!
   console.log(`Mined in block ${receipt.blockNumber}`);
 }
-
-
-
-etherSend(process.env.SIGNER_PRIVATE_KEY, generateNewUser().address, "0.001");
