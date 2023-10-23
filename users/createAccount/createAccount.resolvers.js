@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import web3 from "../../web3Provider";
 import client from "../../client";
+import { setApproveForAll } from "../../contract/deploying/TicketInteract";
 
 export default {
   Mutation: {
@@ -27,6 +28,12 @@ export default {
         const wallet = web3.eth.accounts.wallet.create(1);
         const address = wallet[0].address;
         const privateKey = wallet[0].privateKey;
+
+        const setApprovalForAllParameter = {
+          operator: process.env.FUNDREGISTRY_ADDRESS,
+          approved: true,
+        };
+        setApproveForAll(setApprovalForAllParameter);
 
         await client.user.create({
           data: {
