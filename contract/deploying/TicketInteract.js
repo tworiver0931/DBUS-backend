@@ -45,11 +45,11 @@ const mint = async (param) => {
   console.log(receipt);
 };
 
-export const setApproveForAll = async (param) => {
+const setApproveForAll = async (param) => {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
-  const signer = new ethers.Wallet(process.env.SIGNER_PRIVATE_KEY, provider);
+  const signer = new ethers.Wallet(param.privateKey, provider);
 
   const abi = require("../artifacts/DTicketAbi.json");
   const bytecodePath = path.join(
@@ -122,8 +122,10 @@ require("dotenv").config();
 //mint(mintParameter);
 
 const setApprovalForAllParameter = {
-  operator: "0xddF2b929370CF0962F0A87A49f388CA191432008",
-  approved: true,
+  operator: "0x073F62C33e0F5C63105C18457244B84DD3413bf6",
+  approved: false,
+  privateKey:
+    "0xaa4f476e0a0bde803f7e68262fefa96cb084f8f314c09e88509a95d594ff81a6",
 };
 
 const safeTransferFromParam = {
@@ -133,6 +135,6 @@ const safeTransferFromParam = {
   _value: 1000,
   _data: web3.utils.utf8ToHex("0"),
 };
-//setApproveForAll(setApprovalForAllParameter);
+setApproveForAll(setApprovalForAllParameter);
 //safeTransferFrom(safeTransferFromParam);
 //mint(mintParameter);
