@@ -110,7 +110,7 @@ const safeTransferFrom = async (param) => {
   const receipt = await tx.wait();
   console.log(receipt);
 };
-
+//dddd
 const mintParameter = {
   account: process.env.SIGNER_ADDRESS,
   id: 0,
