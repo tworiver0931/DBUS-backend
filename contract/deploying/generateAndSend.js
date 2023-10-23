@@ -27,6 +27,8 @@ async function etherSend(fromPrivateKey, to, value) {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL)
+  //const provider = new ethers.providers.JsonRpcProvider('wss://rpc-mumbai.matic.today')
+  console.log(provider);
   const signer = new ethers.Wallet(fromPrivateKey, provider);
   
   
