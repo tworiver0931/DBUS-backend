@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon --exec babel-node server --delay 1",
+    "dev": "nodemon --exec babel-node server --delay 2",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
   },
@@ -19,10 +19,13 @@
     "apollo-server-express": "^3.12.1",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
+    "ethers": "5.7",
     "express": "^4.18.2",
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "nft.storage": "^7.1.1",
+    "solc": "^0.8.20",
     "web3": "^4.1.2"
   },
   "devDependencies": {

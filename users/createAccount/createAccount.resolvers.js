@@ -41,6 +41,7 @@ export default {
           ok: true,
         };
       } catch (e) {
+        console.log(e);
         return {
           ok: false,
           error: "Cant create account.",
