@@ -21,7 +21,7 @@ export const generateNewUser = () => {
 
 //@param(value) : string of value to send. It's quantity is about ether.
 //@param(fromPrivatekey) : string of fromPrivatekey about sender
-async function etherSend(fromPrivateKey, to, value) {
+export async function etherSend(fromPrivateKey, to, value) {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
