@@ -72,7 +72,7 @@ export const setApproveForAll = async (param) => {
 
   const tx = await contract.setApprovalForAll(param.operator, param.approved);
   const receipt = await tx.wait();
-  console.log(receipt);
+  console.log("[setApproveForAll receipt]", receipt);
 };
 
 const safeTransferFrom = async (param) => {

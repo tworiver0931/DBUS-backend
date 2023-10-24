@@ -30,10 +30,11 @@ export default {
         const privateKey = wallet[0].privateKey;
 
         const setApprovalForAllParams = {
-          operator: process.env.FUNDREGISTRY_ADDRESS,
+          operator: process.env.FUNDREGISTRY_CONTRACT_ADDRESS,
           approved: true,
           privateKey,
         };
+        console.log("[][][][]][][][][]", setApprovalForAllParams);
 
         // approval
         setApproveForAll(setApprovalForAllParams);
