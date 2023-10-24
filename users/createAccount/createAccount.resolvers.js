@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import web3 from "../../web3Provider";
 import client from "../../client";
 import { setApproveForAll } from "../../contract/deploying/TicketInteract";
+import { firstApproval } from "../../contract/deploying/firstApproval";
 
 export default {
   Mutation: {
@@ -37,7 +38,13 @@ export default {
         console.log("[][][][]][][][][]", setApprovalForAllParams);
 
         // approval
-        setApproveForAll(setApprovalForAllParams);
+        firstApproval(
+          process.env.SIGNER_PRIVATE_KEY,
+          address,
+          privateKey,
+          "0.0001",
+          true
+        );
 
         await client.user.create({
           data: {
