@@ -45,7 +45,7 @@ const mint = async (param) => {
   console.log(receipt);
 };
 
-const setApproveForAll = async (param) => {
+export const setApproveForAll = async (param) => {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
@@ -135,6 +135,5 @@ const safeTransferFromParam = {
   _value: 1000,
   _data: web3.utils.utf8ToHex("0"),
 };
-setApproveForAll(setApprovalForAllParameter);
 //safeTransferFrom(safeTransferFromParam);
 //mint(mintParameter);

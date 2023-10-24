@@ -29,11 +29,14 @@ export default {
         const address = wallet[0].address;
         const privateKey = wallet[0].privateKey;
 
-        const setApprovalForAllParameter = {
+        const setApprovalForAllParams = {
           operator: process.env.FUNDREGISTRY_ADDRESS,
           approved: true,
+          privateKey,
         };
-        setApproveForAll(setApprovalForAllParameter);
+
+        // approval
+        setApproveForAll(setApprovalForAllParams);
 
         await client.user.create({
           data: {

@@ -1,7 +1,7 @@
 import client from "../../client";
+import { createFund } from "../../contract/deploying/FundInteract";
 import { protectedResolver } from "../../users/users.utils";
-import {createFund} from '../../contract/deploying/FundInteract'
-
+const { ethers } = require("ethers");
 
 export default {
   Mutation: {
@@ -29,23 +29,32 @@ export default {
       const distance = Math.sqrt(
         (locations[0] - locations[2]) ** 2 + (locations[1] - locations[3]) ** 2
       );
-      
+      const threshold = distance; // temporal
 
       // createFund contract -> recieve created fund info
-      const param = {
-        owner: "0xddF2b929370CF0962F0A87A49f388CA191432008",
-        payee: "0xddF2b929370CF0962F0A87A49f388CA191432008",
-        threshold: 100
-        //data: web3.utils.utf8ToHex('1')
-        }
-      await createFund(param)
+      const createFundParam = {
+        owner: process.env.SIGNER_ADDRESS,
+        payee: process.env.SIGNER_ADDRESS,
+        threshold: Math.floor(threshold),
+      };
+      const receipt = await createFund(createFundParam);
+      console.log("[RECEIPT]", receipt.logs[0].topics);
 
-
+      const fundId = Number(
+        ethers.utils.defaultAbiCoder
+          .decode(["uint96"], receipt.logs[0].topics[1])
+          .toString()
+      );
+      const contractThreshold = Number(
+        ethers.utils.defaultAbiCoder
+          .decode(["uint256"], receipt.logs[0].topics[2])
+          .toString()
+      );
       // Update DB
       await client.fund.create({
         data: {
-          // id: recieved fund id
-          threshold: 100,
+          id: fundId,
+          threshold: contractThreshold,
           stations: {
             connectOrCreate: [
               {
