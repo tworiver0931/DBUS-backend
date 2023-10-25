@@ -55,9 +55,9 @@ const getFundUsers = async ({ fundIdx }) => {
   return fundUsers;
 };
 
-//@fundIdx: 조회할 티켓 번호.
+//@args : fundIdx - 조회할 티켓 번호.
 //@return : {fundUsers, ticketAmount} -> fundUsers - 각 유저의 주소, ticketAmount 각 유저가 들고있는 티켓의 갯수.
-export const getRetaining = async (fundIdx) => {
+export const getTicketAmounts = async (fundIdx) => {
   const getFundUsersParam = {
     fundIdx: fundIdx,
   };
@@ -76,7 +76,8 @@ export const getRetaining = async (fundIdx) => {
   const contract_address = fs.readFileSync(contractAddressPath, "utf8");
   const contract = new ethers.Contract(contract_address, abi, signer);
 
-  const value = await contract.balanceOfBatch(fundUsers, [3, 3]);
+  const fundIdxArray = Array.from({ length: fundUsers.length }, () => fundIdx);
+  const value = await contract.balanceOfBatch(fundUsers, fundIdxArray);
   var ticketAmount = [];
   for (i = 0; i < value.length; i++) {
     ticketAmount.push(parseInt(value[i]._hex));
@@ -89,3 +90,5 @@ export const getRetaining = async (fundIdx) => {
 
   console.log(result);
 };
+
+//getTicketAmounts(4);

@@ -99,9 +99,9 @@ const createFundParam = {
 //createFund(createFundParam);
 
 const donateParam = {
-  _user: "0x6296540f222DF82716a5DEE2dB2D009BCe151F3c",
-  _fundId: 3,
-  _fundAmount: 50,
+  _user: "0xddF2b929370CF0962F0A87A49f388CA191432008",
+  _fundId: 4,
+  _fundAmount: 102,
 };
 
 const defaultMintToOwnerParam = {
