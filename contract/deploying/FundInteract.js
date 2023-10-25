@@ -7,7 +7,7 @@ const path = require("path");
 const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL); //metamask로 rpc를 연결하면 자동으로 signer랑 연결.
 const signer = new ethers.Wallet(process.env.SIGNER_PRIVATE_KEY, provider);
 
-export const createFund = async (param) => {
+const createFund = async (param) => {
   const abi = require("../artifacts/FundRegistryAbi.json");
   const bytecodePath = path.join(
     path.dirname(__dirname),
@@ -37,7 +37,7 @@ export const createFund = async (param) => {
   return receipt;
 };
 
-export const defaultMintToOwner = async (param) => {
+const defaultMintToOwner = async (param) => {
   const abi = require("../artifacts/FundRegistryAbi.json");
   const bytecodePath = path.join(
     path.dirname(__dirname),
@@ -60,7 +60,7 @@ export const defaultMintToOwner = async (param) => {
   return receipt;
 };
 
-export const donate = async (param) => {
+const donate = async (param) => {
   const abi = require("../artifacts/FundRegistryAbi.json");
   const bytecodePath = path.join(
     path.dirname(__dirname),
@@ -99,11 +99,13 @@ const createFundParam = {
 //createFund(createFundParam);
 
 const donateParam = {
-  _user: "0xddF2b929370CF0962F0A87A49f388CA191432008",
-  _fundId: 1,
+  _user: "0x6296540f222DF82716a5DEE2dB2D009BCe151F3c",
+  _fundId: 3,
   _fundAmount: 50,
 };
 
 const defaultMintToOwnerParam = {
   _amount: 100000,
 };
+
+donate(donateParam);

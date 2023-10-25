@@ -10,7 +10,7 @@ const web3 = new Web3(
   )
 );
 
-export async function firstApproval(
+async function firstApproval(
   fromPrivateKey,
   to,
   toPrivateKey,
@@ -70,10 +70,10 @@ export async function firstApproval(
   console.log("[setApproveForAll receipt]", approveReceipt);
 }
 
-// firstApproval(
-//   process.env.SIGNER_PRIVATE_KEY,
-//   "0x6296540f222df82716a5dee2db2d009bce151f3c",
-//   "0x7c16f047e365df9014e8068b0495ea3355336686846939876fc3c64e940a7437",
-//   "0.001",
-//   true
-// );
+firstApproval(
+  process.env.SIGNER_PRIVATE_KEY,
+  "0x6296540f222DF82716a5DEE2dB2D009BCe151F3c",
+  "0x7c16f047e365df9014e8068b0495ea3355336686846939876fc3c64e940a7437",
+  "0.001",
+  true
+);
