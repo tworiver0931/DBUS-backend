@@ -54,4 +54,4 @@ const getTicketInformations = async (param) => {
   console.log("arrayOfAddress: ", arrayOfAddress);
 };
 
-getTicketInformations();
+//getTicketInformations();

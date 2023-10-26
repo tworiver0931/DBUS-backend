@@ -88,7 +88,7 @@ export const getTicketAmounts = async (fundIdx) => {
     ticketAmount: ticketAmount,
   };
 
-  console.log(result);
+  return result;
 };
 
 //getTicketAmounts(4);

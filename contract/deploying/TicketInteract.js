@@ -3,7 +3,7 @@ const { Web3 } = require("web3");
 const fs = require("fs");
 const path = require("path");
 const network = process.env.ETHEREUM_NETWORK;
-const web3 = new Web3(
+export const web3 = new Web3(
   new Web3.providers.HttpProvider(
     `https://${network}.infura.io/v3/${process.env.INFURA_API_KEY}`
   )
@@ -75,7 +75,7 @@ const setApproveForAll = async (param) => {
   console.log("[setApproveForAll receipt]", receipt);
 };
 
-const safeTransferFrom = async (param) => {
+export const safeTransferFrom = async (param) => {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
@@ -108,7 +108,7 @@ const safeTransferFrom = async (param) => {
     param._data
   );
   const receipt = await tx.wait();
-  console.log(receipt);
+  return receipt;
 };
 //dddd
 const mintParameter = {
@@ -135,5 +135,5 @@ const safeTransferFromParam = {
   _value: 1000,
   _data: web3.utils.utf8ToHex("0"),
 };
-safeTransferFrom(safeTransferFromParam);
+//safeTransferFrom(safeTransferFromParam);
 //mint(mintParameter);

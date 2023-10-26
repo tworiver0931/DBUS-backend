@@ -41,4 +41,4 @@ async function deploy() {
   fs.writeFileSync(deployedAddressPath, contract.address);
 }
 
-deploy();
+//deploy();
