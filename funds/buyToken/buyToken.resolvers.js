@@ -4,6 +4,7 @@ import {
   safeTransferFrom,
   web3,
 } from "../../contract/deploying/TicketInteract";
+import { checkBalanceOfUser } from "../../contract/deploying/check";
 
 export default {
   Mutation: {
@@ -25,6 +26,17 @@ export default {
       const receipt = await safeTransferFrom(safeTransferFromParam);
       console.log(receipt);
 
+      // 토큰 조회
+      const updatedBalance = await checkBalanceOfUser(user.address, 0);
+      // DB update
+      await client.user.update({
+        where: {
+          id: loggedInUser.id,
+        },
+        data: {
+          tokenAmount: updatedBalance,
+        },
+      });
       return {
         ok: true,
       };

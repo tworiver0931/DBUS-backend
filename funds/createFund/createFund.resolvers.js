@@ -29,7 +29,7 @@ export default {
       const distance = Math.sqrt(
         (locations[0] - locations[2]) ** 2 + (locations[1] - locations[3]) ** 2
       );
-      const threshold = distance; // temporal
+      const threshold = 10; // temporal
 
       // createFund contract -> recieve created fund info
       const createFundParam = {

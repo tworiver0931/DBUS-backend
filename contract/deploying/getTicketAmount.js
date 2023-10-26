@@ -44,7 +44,7 @@ const getFundUsers = async ({ fundIdx }) => {
   var fundUsers = [];
 
   const log = await provider.getLogs(myFilter);
-  for (i = 0; i < log.length; i++) {
+  for (let i = 0; i < log.length; i++) {
     const decodedId = ethers.utils.defaultAbiCoder.decode(
       ["uint256"],
       log[i].data
@@ -79,13 +79,13 @@ export const getTicketAmounts = async (fundIdx) => {
   const fundIdxArray = Array.from({ length: fundUsers.length }, () => fundIdx);
   const value = await contract.balanceOfBatch(fundUsers, fundIdxArray);
   var ticketAmount = [];
-  for (i = 0; i < value.length; i++) {
+  for (let i = 0; i < value.length; i++) {
     ticketAmount.push(parseInt(value[i]._hex));
   }
 
   const result = {
-    fundUsers: fundUsers,
-    ticketAmount: ticketAmount,
+    userAddresses: fundUsers,
+    ticketAmounts: ticketAmount,
   };
 
   return result;

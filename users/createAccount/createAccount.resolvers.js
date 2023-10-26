@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import web3 from "../../web3Provider";
 import client from "../../client";
-import { setApproveForAll } from "../../contract/deploying/TicketInteract";
 import { firstApproval } from "../../contract/deploying/firstApproval";
 
 export default {
@@ -27,22 +26,15 @@ export default {
 
         // create wallet
         const wallet = web3.eth.accounts.wallet.create(1);
-        const address = wallet[0].address;
+        const address = wallet[0].address.toLowerCase();
         const privateKey = wallet[0].privateKey;
 
-        const setApprovalForAllParams = {
-          operator: process.env.FUNDREGISTRY_CONTRACT_ADDRESS,
-          approved: true,
-          privateKey,
-        };
-        console.log("[][][][]][][][][]", setApprovalForAllParams);
-
         // approval
-        firstApproval(
+        await firstApproval(
           process.env.SIGNER_PRIVATE_KEY,
           address,
           privateKey,
-          "0.0001",
+          "0.01",
           true
         );
 
