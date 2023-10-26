@@ -1,16 +1,8 @@
 import client from "../../client";
-import { safeTransferFrom } from "../../contract/deploying/TicketInteract";
+import { burn } from "../../contract/deploying/FundInteract";
 import { protectedResolver } from "../../users/users.utils";
-const { Web3 } = require("web3");
-const fs = require("fs");
-const path = require("path");
-const network = process.env.ETHEREUM_NETWORK;
+
 require("dotenv").config();
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(
-    `https://${network}.infura.io/v3/${process.env.INFURA_API_KEY}`
-  )
-);
 
 export default {
   Mutation: {
@@ -22,32 +14,16 @@ export default {
       });
 
       // burn contract
-      const ticketContractAddressPath = path.join(
-        path.dirname(__dirname),
-        "..",
-        "contract",
-        "artifacts",
-        "FundRegistryAddress.bin"
-      );
-      console.log(ticketContractAddressPath);
-      const ticket_contract_address = fs.readFileSync(
-        ticketContractAddressPath,
-        "utf8"
-      );
-
-      const safeTransferFromParam = {
-        _from: ticket_contract_address,
-        _to: user.address,
-        _id: fundId,
-        _value: 1,
-        _data: web3.utils.utf8ToHex("0"),
+      const burnParams = {
+        _user: user.address,
+        _amount: 1,
+        _fundId: fundId,
       };
-
-      const receipt = await safeTransferFrom(safeTransferFromParam);
-      console.log(receipt);
+      const burnReceipt = burn(burnParams);
+      console.log(burnReceipt);
 
       // DB update
-      const existingTicket = await prisma.ticket.findUnique({
+      const existingTicket = await client.ticket.findUnique({
         where: { userId, fundId },
       });
       const newAmount = existingTicket.amount - 1;
