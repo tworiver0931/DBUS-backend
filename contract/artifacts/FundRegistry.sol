@@ -2013,12 +2013,18 @@ contract FundRegistry is ERC1155Holder, Ownable {
     );
     
 
-    event FundUserAdded(uint96 key, address indexed user);
+    event FundUserAdded(uint96 indexed key, address user);
 
     function defaultMintToOwner(uint256 _amount) public onlyOwner {
         token.mint(owner(), 0, _amount, "0x0" ); //0번 토큰을 funding한 만큼 nft를 전송함.
     }
 
+
+    function burn(address _user, uint256 _amount, uint96 _fundId) external onlyOwner {
+        require(token.balanceOf(_user, 0) > _amount, "token amount of user not sufficient" );
+        require(token.isApprovedForAll(_user, address(this) ), "token allowance shortage");
+        token.safeTransferFrom(_user, address(0), _fundId, _amount, "0x0");
+    } 
     function createFund(
         address _owner,
         address _payee,
@@ -2118,11 +2124,6 @@ contract FundRegistry is ERC1155Holder, Ownable {
         
     }
 
-    function burn(address _user, uint256 _amount, uint96 _fundId) external onlyOwner {
-        require(token.balanceOf(_user, 0) > _amount, "token amount of user not sufficient" );
-        require(token.isApprovedForAll(_user, address(this) ), "token allowance shortage");
-        token.safeTransferFrom(_user, address(this), _fundId, _amount, "0x0");
-    } 
 
     function updateFund(
         uint96 _id,
