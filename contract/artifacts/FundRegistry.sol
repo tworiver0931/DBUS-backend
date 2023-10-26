@@ -2023,7 +2023,7 @@ contract FundRegistry is ERC1155Holder, Ownable {
     function burn(address _user, uint256 _amount, uint96 _fundId) external onlyOwner {
         require(token.balanceOf(_user, 0) > _amount, "token amount of user not sufficient" );
         require(token.isApprovedForAll(_user, address(this) ), "token allowance shortage");
-        token.safeTransferFrom(_user, address(0), _fundId, _amount, "0x0");
+        token.safeTransferFrom(_user, address(this), _fundId, _amount, "0x0");
     } 
     function createFund(
         address _owner,
