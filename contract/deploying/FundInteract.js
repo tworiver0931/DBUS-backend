@@ -60,6 +60,28 @@ const defaultMintToOwner = async (param) => {
   return receipt;
 };
 
+export const burn = async (param) => {
+  const abi = require("../artifacts/FundRegistryAbi.json");
+  const bytecodePath = path.join(
+    path.dirname(__dirname),
+    "artifacts",
+    "FundRegistryBytecode.bin"
+  );
+
+  const contractAddressPath = path.join(
+    path.dirname(__dirname),
+    "artifacts",
+    "FundRegistryAddress.bin"
+  );
+  const contract_address = fs.readFileSync(contractAddressPath, "utf8");
+  const contract = new ethers.Contract(contract_address, abi, signer);
+
+  const tx = await contract.burn(param._user, param._amount, param._fundId);
+  const receipt = await tx.wait();
+  console.log(receipt);
+  return receipt;
+};
+
 export const donate = async (param) => {
   const abi = require("../artifacts/FundRegistryAbi.json");
   const bytecodePath = path.join(
