@@ -6,7 +6,7 @@ require("dotenv").config();
 
 export default {
   Mutation: {
-    useTicket: protectedResolver(async (_, { userId, fundId }) => {
+    useTicket: async (_, { userId, fundId }) => {
       const user = await client.user.findUnique({
         where: {
           id: userId,
@@ -19,7 +19,7 @@ export default {
         _amount: 1,
         _fundId: fundId,
       };
-      const burnReceipt = burn(burnParams);
+      const burnReceipt = await burn(burnParams);
       console.log(burnReceipt);
 
       // DB update
@@ -37,6 +37,6 @@ export default {
       return {
         ok: true,
       };
-    }),
+    },
   },
 };

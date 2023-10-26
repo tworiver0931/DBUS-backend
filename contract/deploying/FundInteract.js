@@ -78,7 +78,6 @@ export const burn = async (param) => {
 
   const tx = await contract.burn(param._user, param._amount, param._fundId);
   const receipt = await tx.wait();
-  console.log(receipt);
   return receipt;
 };
 
