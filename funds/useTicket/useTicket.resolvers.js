@@ -1,6 +1,6 @@
 import client from "../../client";
 import { burn } from "../../contract/deploying/FundInteract";
-import { protectedResolver } from "../../users/users.utils";
+import { checkBalanceOfUser } from "../../contract/deploying/check";
 
 require("dotenv").config();
 
@@ -23,14 +23,11 @@ export default {
       console.log(burnReceipt);
 
       // DB update
-      const existingTicket = await client.ticket.findUnique({
-        where: { userId, fundId },
-      });
-      const newAmount = existingTicket.amount - 1;
-      await client.ticket.update({
+      const updatedBalance = await checkBalanceOfUser(user.address, fundId);
+      await client.ticket.updateMany({
         where: { userId, fundId },
         data: {
-          amount: newAmount,
+          amount: updatedBalance,
         },
       });
 

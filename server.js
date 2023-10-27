@@ -4,12 +4,14 @@ import logger from "morgan";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
+import cors from "cors";
 
 const startApolloServer = async () => {
   const PORT = process.env.PORT;
 
   const app = express();
   app.use(logger("tiny"));
+  app.use(cors());
 
   const apollo = new ApolloServer({
     resolvers,
