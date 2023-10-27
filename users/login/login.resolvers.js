@@ -2,6 +2,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import client from "../../client";
 
+```
+  로그인
+```;
+
 export default {
   Mutation: {
     login: async (_, { username, password }) => {

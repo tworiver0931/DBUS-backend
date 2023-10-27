@@ -45,31 +45,6 @@ export default {
 
       funds = funds.sort(sortingFunc);
       return funds;
-      /*
-      const stations = await client.station.findMany();
-      const stationIds = stations.map((station) => station.id);
-      stationIds.sort((prev, cur) => {
-        if(prev.location)
-      })
-
-      const filter = {
-        stations: {
-          some: {
-            id: {
-              in: stationIds,
-            },
-          },
-        },
-      };
-      if (isEnd) {
-        filter.isEnd = isEnd;
-      }
-
-      const funds = await client.fund.findMany({
-        where: filter,
-      });
-      return funds;
-      */
     },
   },
 };
