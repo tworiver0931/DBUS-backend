@@ -16,6 +16,8 @@ export default gql`
     id: Int!
     name: String!
     funds: [Fund]
+    posX: Float!
+    posY: Float!
   }
 
   type Ticket {
