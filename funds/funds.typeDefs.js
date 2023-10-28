@@ -7,6 +7,7 @@ export default gql`
     fundAmount: Int!
     threshold: Int!
     users: [User]
+    tickets: [Ticket]
     isEnd: Boolean!
     createdAt: String!
     updatedAt: String!
@@ -22,8 +23,8 @@ export default gql`
 
   type Ticket {
     id: Int!
-    fundId: Int!
     amount: Int!
     user: User
+    fund: Fund
   }
 `;

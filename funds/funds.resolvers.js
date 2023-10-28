@@ -12,6 +12,16 @@ export default {
           },
         },
       }),
+    tickets: ({ id }) =>
+      client.ticket.findMany({
+        where: {
+          funds: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
     users: ({ id }) =>
       client.user.findMany({
         where: {
@@ -37,5 +47,6 @@ export default {
 
   Ticket: {
     user: ({ userId }) => client.user.findUnique({ where: { id: userId } }),
+    fund: ({ fundId }) => client.fund.findUnique({ where: { id: fundId } }),
   },
 };
