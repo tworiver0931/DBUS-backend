@@ -110,6 +110,39 @@ export const safeTransferFrom = async (param) => {
   const receipt = await tx.wait();
   return receipt;
 };
+
+export const withdraw = async (param) => {
+  // Configuring the connection to an Ethereum node
+  const network = process.env.ETHEREUM_NETWORK;
+  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+  const signer = new ethers.Wallet(param._fromPrivateKey, provider);
+
+  const abi = require("../artifacts/DTicketAbi.json");
+  const bytecodePath = path.join(
+    path.dirname(__dirname),
+    "artifacts",
+    "DTicketBytecode.bin"
+  );
+  const bytecode = fs.readFileSync(bytecodePath, "utf8");
+
+  const contractAddressPath = path.join(
+    path.dirname(__dirname),
+    "artifacts",
+    "DTicketAddress.bin"
+  );
+  const contract_address = fs.readFileSync(contractAddressPath, "utf8");
+  const contract = new ethers.Contract(contract_address, abi, signer);
+
+  const tx = await contract.safeTransferFrom(
+    param._fromAddress,
+    param._toAddress,
+    param._id,
+    param._value,
+    param._data
+  );
+  const receipt = await tx.wait();
+  return receipt;
+};
 //dddd
 const mintParameter = {
   account: process.env.SIGNER_ADDRESS,
