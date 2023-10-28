@@ -6,8 +6,8 @@ require("dotenv").config();
 console.log(process.env.RPC_URL);
 
 export const generateNewUser = () => {
-  buf = Buffer.from(ethers.utils.randomBytes(32)); //32byte rng and creating buffer instance. buffer
-  pKey = buf.toString("hex");
+  const buf = Buffer.from(ethers.utils.randomBytes(32)); //32byte rng and creating buffer instance. buffer
+  const pKey = buf.toString("hex");
   const publicKey = ethers.utils.computePublicKey(buf);
   const address = ethers.utils.computeAddress(publicKey);
   const newUser = {

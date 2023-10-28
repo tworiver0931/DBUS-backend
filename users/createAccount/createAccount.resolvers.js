@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import web3 from "../../web3Provider";
 import client from "../../client";
 import { firstApproval } from "../../contract/deploying/firstApproval";
+import { generateNewUser } from "../../contract/deploying/generateAndSend";
 
 export default {
   Mutation: {
@@ -25,15 +26,13 @@ export default {
         const uglyPassword = await bcrypt.hash(password, 10);
 
         // create wallet
-        const wallet = web3.eth.accounts.wallet.create(1);
-        const address = wallet[0].address.toLowerCase();
-        const privateKey = wallet[0].privateKey;
+        const newUser = generateNewUser();
 
         // approval
         await firstApproval(
           process.env.SIGNER_PRIVATE_KEY,
-          address,
-          privateKey,
+          newUser.address.toLowerCase(),
+          newUser.privateKey,
           "0.01",
           true
         );
@@ -42,8 +41,8 @@ export default {
           data: {
             username,
             email,
-            address,
-            privateKey,
+            address: newUser.address.toLowerCase(),
+            privateKey: newUser.privateKey,
             password: uglyPassword,
           },
         });

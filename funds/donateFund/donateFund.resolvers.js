@@ -35,7 +35,7 @@ export default {
 
           // USER, TICKET DB update if fund completed
           for (let i = 0; i < ticketAmounts.length; i++) {
-            const user = await client.user.findUnique({
+            const user = await client.user.findFirst({
               where: {
                 address: userAddresses[i],
               },

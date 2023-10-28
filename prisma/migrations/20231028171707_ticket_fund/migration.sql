@@ -1,2 +1,0 @@
--- AddForeignKey
-ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_fundId_fkey" FOREIGN KEY ("fundId") REFERENCES "Fund"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -53,3 +53,4 @@ model Ticket {
   fund   Fund @relation(fields: [fundId], references: [id])
   fundId Int
 }
+
