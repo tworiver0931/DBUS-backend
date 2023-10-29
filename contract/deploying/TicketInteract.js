@@ -110,7 +110,6 @@ export const safeTransferFrom = async (param) => {
   const receipt = await tx.wait();
   return receipt;
 };
-
 export const withdraw = async (param) => {
   // Configuring the connection to an Ethereum node
   const network = process.env.ETHEREUM_NETWORK;
@@ -142,8 +141,7 @@ export const withdraw = async (param) => {
   );
   const receipt = await tx.wait();
   return receipt;
-};
-//dddd
+}; //dddd
 const mintParameter = {
   account: process.env.SIGNER_ADDRESS,
   id: 0,

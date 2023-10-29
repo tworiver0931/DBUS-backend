@@ -9,7 +9,7 @@ import { checkBalanceOfUser } from "../../contract/deploying/check";
 
 export default {
   Mutation: {
-    buyToken: protectedResolver(
+    transfer: protectedResolver(
       async (_, { fundId, amount, withdrawAddress }, { loggedInUser }) => {
         const user = await client.user.findUnique({
           where: {

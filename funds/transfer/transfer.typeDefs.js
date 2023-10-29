@@ -5,7 +5,7 @@ export default gql`
     transfer(
       fundId: Int!
       amount: Int!
-      withdrawAdress: Int!
+      withdrawAddress: String!
     ): MutationResponse!
   }
 `;
