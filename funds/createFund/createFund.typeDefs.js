@@ -8,6 +8,6 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Mutation {
-    createFund(stations: [String]!, locations: [Float]!): MutationResponse!
+    createFund(stations: [String]!, locations: [Float]!): Fund!
   }
 `;

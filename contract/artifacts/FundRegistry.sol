@@ -1959,8 +1959,10 @@ pragma abicoder v2;
 contract FundRegistry is ERC1155Holder, Ownable {
     DTicket token;
     uint96 public fundCount = 1;
+    
     constructor(DTicket _token, address initialOwner) Ownable(initialOwner) {
         token = _token;
+        
     }
     struct Fund {
         uint96 id;
@@ -2016,6 +2018,7 @@ contract FundRegistry is ERC1155Holder, Ownable {
     event FundUserAdded(uint96 indexed key, address user);
 
     function defaultMintToOwner(uint256 _amount) public onlyOwner {
+        
         token.mint(owner(), 0, _amount, "0x0" ); //0번 토큰을 funding한 만큼 nft를 전송함.
     }
 
@@ -2102,11 +2105,8 @@ contract FundRegistry is ERC1155Holder, Ownable {
                 block.timestamp
             );
             funds[_fundIdx].isEnd = true; //모금이 완료되었음을 표기한다.
-            mintDTiket(_fundIdx, 1000); //모금이 완료되면 도네이트한 사람들에게 해당 금액의 NFT를 전송한다.
+            mintDTiket(_fundIdx, 50); //모금이 완료되면 도네이트한 사람들에게 해당 금액의 NFT를 전송한다.
         }
-
-
-        
     }
 
     function mintDTiket(uint96 _fundId, uint96 totalTicket) private  {
